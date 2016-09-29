@@ -27,6 +27,7 @@ function _M.configure(contents)
 end
 
 function _M.init(config)
+  ngx.log(ngx.INFO, 'apicast init with config: ' .. tostring(config))
   _M.configure(config)
 
   math.randomseed(ngx.now())

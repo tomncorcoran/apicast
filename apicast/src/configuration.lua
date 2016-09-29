@@ -237,6 +237,7 @@ function _M.init()
   local config, exit, code = util.system("cd '" .. ngx.config.prefix() .."' && libexec/boot")
 
   if config then
+    ngx.log(ngx.INFO, 'boot configuration loaded: ' .. tostring(config))
     if str_len(config) > 0 then return config end
   elseif exit then
     if code then
