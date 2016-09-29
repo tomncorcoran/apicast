@@ -50,4 +50,7 @@ while getopts ":d" opt; do
   esac
 done
 
+APICAST_CONFIG=$(cd "${apicast_dir}" && libexec/boot)
+echo "APICAST_CONFIG: ${APICAST_CONFIG}"
+
 exec ${openresty_binary} -p ${apicast_dir} -c conf/nginx.conf -g "daemon ${daemon}; error_log ${log_file} ${log_level};"
