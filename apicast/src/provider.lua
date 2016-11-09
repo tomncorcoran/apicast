@@ -295,12 +295,11 @@ function _M.call(host)
       ngx.log(ngx.DEBUG, 'apicast oauth flow')
       return function() return f(params) end
     end
+  end
 
-  else
-    return function()
-      -- call access phase
-      return _M.access(service)
-    end
+  return function()
+    -- call access phase
+    return _M.access(service)
   end
 end
 
