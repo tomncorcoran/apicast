@@ -1,11 +1,8 @@
 <h3>Consent</h3>
 
-<p>Am application is trying to get access to your data. Do you approve?</p>
+<p>Application with id <%= @client_id %> wants <%= @scope %> access to your data. Do you accept?</p>
 
-<form name="input" action="/authorized" method="post">
-  <input type="hidden" name="state" value="<%= @my_local_state %>">
-  <input type="hidden" name="plan_id" value="<%= @plan_id %>">
-
+<form name="input" action="/authorized" method="get">
 <br />
   <div class="btn-group">
     <button type="submit" class="btn">Accept</button>

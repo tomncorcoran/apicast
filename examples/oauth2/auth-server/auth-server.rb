@@ -1,20 +1,19 @@
-#shotgun app.rb -p 9294
 require 'sinatra'
 
 set :bind, '0.0.0.0'
-
 nginx_redirect_uri =  "http://localhost:8080/callback?"  #nginx callback
-
+enable :sessions
 
 get("/") do
   erb :root
 end
 
 get("/auth/login") do
-  logger.info("Params"..params)
-  @my_local_state = params[:state]
-  @plan_id = params[:scope]
-  @pre_token = params[:tok]
+  session[:client_id]=params[:client_id]
+  session[:redirect_uri]=params[:redirect_uri]
+  session[:scope]=params[:scope]
+  session[:state] = params[:state]
+  session[:pre_token] = params[:tok]
   erb :login
 end
 
@@ -23,17 +22,19 @@ post("/auth/login") do
 end
 
 get("/consent") do
+  @client_id = session[:client_id]
+  @scope = session[:scope]
   erb :consent
 end
 
-post("/authorized") do  
-  callback =  "#{nginx_redirect_uri}&state=#{params[:state]}"
+get("/authorized") do  
+  callback =  "#{nginx_redirect_uri}state=#{session[:state]}&redirect_uri=#{session[:redirect_uri]}"
   puts callback
   redirect callback
 end
 
-post("/denied") do 
-  callback =  "#{nginx_redirect_uri}&state=#{params[:state]}"
+get("/denied") do 
+  callback =  "#{session[:redirect_uri]}#error=access_deniedt&error_description=resource_owner_denied_request&state=#{session[:state]}"
   puts callback
   redirect callback
 end

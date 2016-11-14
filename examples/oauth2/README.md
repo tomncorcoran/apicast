@@ -43,3 +43,13 @@ The docker compose file spins up 3 services:
 1. APIcast
 2. Redis 
 3. A very simple "Authorization Server" written in Ruby
+
+auth-server.rb
+--------------
+
+A very simple Sinatra app acting as an Authorization Server. 
+
+The app will display a log in page (/auth/login) which will accept any values for username and password.
+Once logged in, a consent page will be displayed to accept or deny the request. 
+
+The authorization server will callback apicast on request acceptance or denial 
