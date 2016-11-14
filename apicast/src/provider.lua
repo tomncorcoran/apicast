@@ -352,6 +352,10 @@ function _M.access(service)
 
   ngx.var.secret_token = service.secret_token
 
+
+ngx.log(0, "****************************************** TOM CUSTOM CODE ******************************************")
+  
+
   if backend_version == '1' then
     params.user_key = parameters[credentials.user_key]
     ngx.var.cached_key = concat({service.id, params.user_key}, ':')
